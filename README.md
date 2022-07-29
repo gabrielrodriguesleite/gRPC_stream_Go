@@ -3,7 +3,7 @@ A repo to train gRPC stream with Golang
 
 Some stream can be handfull to help to send a big amount of data in tiny chunks.
 
-## Config a Go module
+## Config a Go module and populate a gRPC simple project
 
 ```sh
 # init go project
