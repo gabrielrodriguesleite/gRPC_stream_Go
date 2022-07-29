@@ -18,3 +18,16 @@ echo package main > client/main.go
 echo package main > server/main.go
 echo 'syntax = "proto3";' > proto/data.proto
 ```
+
+## Create a .proto definition
+
+After define a .proto execute
+
+`make generate`
+
+To build `data.grpc.pg.go` and `data.pg.go` packages
+
+## Testing
+
+###### REFERENCES
+https://jadekler.github.io/2020/10/08/stubbing-grpc.html
