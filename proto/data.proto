@@ -1,1 +1,44 @@
 syntax = "proto3";
+
+option go_package = "grpc_stream_go/data";
+
+package data;
+
+service Upvote {
+  
+  rpc Vote (Chose) returns (stream Option) {}
+  
+  // TO LIST OPTIONS
+  /*
+  Username valid and Email valid OptionChosed = 0 Title = ''
+  Returns a list of options and a message on option id = 0 to tell if user already voted or not
+  If already voted Title tells the option already chosed
+  */
+
+  // TO CREATE A NEW OPTION AND VOTE ON IT
+  /*
+  OptionChosed=0 Title=valid Username=valid Email=Valid
+  Returns a list of options and a message on option id = 0 to tell if user already voted or not
+  If already voted Title tells the option already chosed
+  */
+
+  // TO VOTE ON AN ALREADY CREATED OPTION
+  /*
+  OptionChosed=valid_id Title='' Username=valid Email=Valid
+  Returns a list of options and a message on option id = 0 to tell if user already voted or not
+  If already voted Title tells the option already chosed
+  */
+
+}
+
+message Option {
+  int64 id = 1;
+  string Title = 2;
+}
+
+message Chose {
+  string UserName = 1;
+  string Email = 2;
+  Option OptionChosed = 3;
+  string Title = 4;
+}
