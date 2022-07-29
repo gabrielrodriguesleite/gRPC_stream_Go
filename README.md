@@ -27,6 +27,17 @@ After define a .proto execute
 
 To build `data.grpc.pg.go` and `data.pg.go` packages
 
+###### IF IT THROWS A ERROR
+
+Includes this line on the very end of file `~/.bashrc` or `~/.zshrc`
+
+```sh
+# PROTO GO plugins
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+
+Reload environment variables with `source ~/.zhrc/` or relogin on the session.
+
 ## Testing
 
 ###### REFERENCES
