@@ -3,6 +3,11 @@ A repo to train gRPC stream with Golang
 
 Some stream can be handfull to help to send a big amount of data in tiny chunks.
 
+###### REFERENCES
+https://github.com/gabrielrodriguesleite/gRPC_Go/blob/main/README.md
+https://grpc.io/docs/languages/go/basics/#server-side-streaming-rpc
+https://github.com/grpc/grpc-go/blob/master/examples/route_guide/routeguide/route_guide.proto
+
 ## Config a Go module and populate a gRPC simple project
 
 ```sh
