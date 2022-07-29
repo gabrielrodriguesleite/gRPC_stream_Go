@@ -38,7 +38,6 @@ export PATH=$PATH:$(go env GOPATH)/bin
 
 Reload environment variables with `source ~/.zhrc/` or relogin on the session.
 
-## Testing
 
 ## Go fix dependencies
 
@@ -48,5 +47,8 @@ To get all the dependencies for grpc proto run:
 
 A `go.sum` file should be automaticaly created
 
+---
+TODO
+## Testing
 ###### REFERENCES
 https://jadekler.github.io/2020/10/08/stubbing-grpc.html
