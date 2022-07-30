@@ -14,27 +14,27 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// UpvoteClient is the client API for Upvote service.
+// ServiceUpvoteClient is the client API for ServiceUpvote service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UpvoteClient interface {
-	Vote(ctx context.Context, in *Chose, opts ...grpc.CallOption) (Upvote_VoteClient, error)
+type ServiceUpvoteClient interface {
+	MethodVote(ctx context.Context, in *RequestChose, opts ...grpc.CallOption) (ServiceUpvote_MethodVoteClient, error)
 }
 
-type upvoteClient struct {
+type serviceUpvoteClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUpvoteClient(cc grpc.ClientConnInterface) UpvoteClient {
-	return &upvoteClient{cc}
+func NewServiceUpvoteClient(cc grpc.ClientConnInterface) ServiceUpvoteClient {
+	return &serviceUpvoteClient{cc}
 }
 
-func (c *upvoteClient) Vote(ctx context.Context, in *Chose, opts ...grpc.CallOption) (Upvote_VoteClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Upvote_ServiceDesc.Streams[0], "/data.Upvote/Vote", opts...)
+func (c *serviceUpvoteClient) MethodVote(ctx context.Context, in *RequestChose, opts ...grpc.CallOption) (ServiceUpvote_MethodVoteClient, error) {
+	stream, err := c.cc.NewStream(ctx, &ServiceUpvote_ServiceDesc.Streams[0], "/data.ServiceUpvote/MethodVote", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &upvoteVoteClient{stream}
+	x := &serviceUpvoteMethodVoteClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -44,83 +44,83 @@ func (c *upvoteClient) Vote(ctx context.Context, in *Chose, opts ...grpc.CallOpt
 	return x, nil
 }
 
-type Upvote_VoteClient interface {
-	Recv() (*Option, error)
+type ServiceUpvote_MethodVoteClient interface {
+	Recv() (*ResponseOption, error)
 	grpc.ClientStream
 }
 
-type upvoteVoteClient struct {
+type serviceUpvoteMethodVoteClient struct {
 	grpc.ClientStream
 }
 
-func (x *upvoteVoteClient) Recv() (*Option, error) {
-	m := new(Option)
+func (x *serviceUpvoteMethodVoteClient) Recv() (*ResponseOption, error) {
+	m := new(ResponseOption)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-// UpvoteServer is the server API for Upvote service.
-// All implementations must embed UnimplementedUpvoteServer
+// ServiceUpvoteServer is the server API for ServiceUpvote service.
+// All implementations must embed UnimplementedServiceUpvoteServer
 // for forward compatibility
-type UpvoteServer interface {
-	Vote(*Chose, Upvote_VoteServer) error
-	mustEmbedUnimplementedUpvoteServer()
+type ServiceUpvoteServer interface {
+	MethodVote(*RequestChose, ServiceUpvote_MethodVoteServer) error
+	mustEmbedUnimplementedServiceUpvoteServer()
 }
 
-// UnimplementedUpvoteServer must be embedded to have forward compatible implementations.
-type UnimplementedUpvoteServer struct {
+// UnimplementedServiceUpvoteServer must be embedded to have forward compatible implementations.
+type UnimplementedServiceUpvoteServer struct {
 }
 
-func (UnimplementedUpvoteServer) Vote(*Chose, Upvote_VoteServer) error {
-	return status.Errorf(codes.Unimplemented, "method Vote not implemented")
+func (UnimplementedServiceUpvoteServer) MethodVote(*RequestChose, ServiceUpvote_MethodVoteServer) error {
+	return status.Errorf(codes.Unimplemented, "method MethodVote not implemented")
 }
-func (UnimplementedUpvoteServer) mustEmbedUnimplementedUpvoteServer() {}
+func (UnimplementedServiceUpvoteServer) mustEmbedUnimplementedServiceUpvoteServer() {}
 
-// UnsafeUpvoteServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UpvoteServer will
+// UnsafeServiceUpvoteServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ServiceUpvoteServer will
 // result in compilation errors.
-type UnsafeUpvoteServer interface {
-	mustEmbedUnimplementedUpvoteServer()
+type UnsafeServiceUpvoteServer interface {
+	mustEmbedUnimplementedServiceUpvoteServer()
 }
 
-func RegisterUpvoteServer(s grpc.ServiceRegistrar, srv UpvoteServer) {
-	s.RegisterService(&Upvote_ServiceDesc, srv)
+func RegisterServiceUpvoteServer(s grpc.ServiceRegistrar, srv ServiceUpvoteServer) {
+	s.RegisterService(&ServiceUpvote_ServiceDesc, srv)
 }
 
-func _Upvote_Vote_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Chose)
+func _ServiceUpvote_MethodVote_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(RequestChose)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(UpvoteServer).Vote(m, &upvoteVoteServer{stream})
+	return srv.(ServiceUpvoteServer).MethodVote(m, &serviceUpvoteMethodVoteServer{stream})
 }
 
-type Upvote_VoteServer interface {
-	Send(*Option) error
+type ServiceUpvote_MethodVoteServer interface {
+	Send(*ResponseOption) error
 	grpc.ServerStream
 }
 
-type upvoteVoteServer struct {
+type serviceUpvoteMethodVoteServer struct {
 	grpc.ServerStream
 }
 
-func (x *upvoteVoteServer) Send(m *Option) error {
+func (x *serviceUpvoteMethodVoteServer) Send(m *ResponseOption) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-// Upvote_ServiceDesc is the grpc.ServiceDesc for Upvote service.
+// ServiceUpvote_ServiceDesc is the grpc.ServiceDesc for ServiceUpvote service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Upvote_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "data.Upvote",
-	HandlerType: (*UpvoteServer)(nil),
+var ServiceUpvote_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "data.ServiceUpvote",
+	HandlerType: (*ServiceUpvoteServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Vote",
-			Handler:       _Upvote_Vote_Handler,
+			StreamName:    "MethodVote",
+			Handler:       _ServiceUpvote_MethodVote_Handler,
 			ServerStreams: true,
 		},
 	},

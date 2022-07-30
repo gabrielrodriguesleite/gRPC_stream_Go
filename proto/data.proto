@@ -4,9 +4,9 @@ option go_package = "grpc_stream_go/data";
 
 package data;
 
-service Upvote {
+service ServiceUpvote {
   
-  rpc Vote (Chose) returns (stream Option) {}
+  rpc MethodVote (RequestChose) returns (stream ResponseOption) {}
   
   // TO LIST OPTIONS
   /*
@@ -31,14 +31,14 @@ service Upvote {
 
 }
 
-message Option {
-  int64 id = 1;
-  string Title = 2;
-}
-
-message Chose {
+message RequestChose {
   string UserName = 1;
   string Email = 2;
-  Option OptionChosed = 3;
+  int64 OptionChosed = 3;
   string Title = 4;
+}
+
+message ResponseOption {
+  int64 id = 1;
+  string Title = 2;
 }
